@@ -1,0 +1,63 @@
+create table HN_AGENT_BOSS_RELATION
+(ID VARCHAR2(32) PRIMARY KEY NOT NULL,
+ SUB_COMPARY VARCHAR2(128),
+ AGENT_NAME VARCHAR2(128),
+ AGENT_BUS_CODE VARCHAR2(128),
+ BOSS_JOBNUMBER VARCHAR2(128));
+ 
+--2013-03-11
+alter table way_data_imp_config add data_valid_class varchar2(256);
+
+--2013-03-18 
+alter table way_data_imp_config add file_type varchar2(16);
+alter table way_data_imp_config add data_cols varchar2(256);
+alter table way_data_imp_config add validate_rules varchar2(256);
+
+--2013-03-21
+ alter table tds_way_chain add STATUS number(3) default 1;
+ alter table TDS_WAY_GRID add STATUS number(3) default 1;
+ alter table TDS_WAY_GRID_STORE add STATUS number(3) default 1;
+ alter table TDS_WAY_GRID_MEMBER add STATUS number(3) default 1;
+ 
+ --2013-04-12
+ alter table tds_way_zone add STATUS NUMBER(1);
+ 
+ --2013-04-15
+ alter table TDS_GIS_BAS_INFO add STATUS NUMBER(1) default 1;
+ 
+ --2013-04-28
+ alter table way_data_imp_record add temp_data_table varchar2(64);
+ 
+ --2013-05-08
+  alter table way_data_imp_record add temp_data_table varchar2(128);
+ 
+--2013-05-14
+  alter table way_data_imp_config add service_name varchar2(32);
+ 
+ --2013-06-13
+  drop table tds_gis_bas_info_copy;
+  create table tds_gis_bas_info_copy as select * from tds_gis_bas_info where 1=2;
+  alter table tds_gis_bas_info_copy add RECORDID varchar2(32);
+ 
+  drop table TDS_WAY_GRID_MEMBER_COPY;
+  create table TDS_WAY_GRID_MEMBER_COPY as select * from TDS_WAY_GRID_MEMBER where 1=2;
+  alter table TDS_WAY_GRID_MEMBER_COPY add RECORDID varchar2(32);
+  
+  drop table TDS_WAY_SALER_INFO_COPY;
+  create table TDS_WAY_SALER_INFO_COPY as select * from TDS_WAY_SALER_INFO where 1=2;
+  alter table TDS_WAY_SALER_INFO_COPY add RECORDID varchar2(32);
+  
+  --2013-06-24
+  insert into way_report_type(id,name,if_valid)  values('12','渠道预转全新开户报表','1');
+ 
+ --2013-07-11
+  create or replace view V_TERM_COMPANY AS
+--裸机销售
+select a.*,1 comp_type from TDS_NAKETERM_COMPANY a
+union all
+--定制终端销售
+select b.*,2 comp_type from TDS_SALETERM_COMPANY b
+  
+  
+  
+  
